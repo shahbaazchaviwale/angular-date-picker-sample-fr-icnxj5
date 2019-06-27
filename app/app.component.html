@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+	Angular DatePicker v{{version.full}}
+</mat-toolbar>
+
+<div style="padding: 7px">
+
+	<p>
+		<mat-form-field [formGroup]="dateForm">
+			<input #datePicker matInput [matDatepicker]="myDatepicker" formControlName="datePickerInput" placeholder="Date" onkeyup="
+        var v = this.value;
+        if (v.match(/^\d{2}$/) !== null) {
+            this.value = v + '/';
+        } else if (v.match(/^\d{2}\/\d{2}$/) !== null) {
+            this.value = v + '/';
+        }" (keypress)="_keyPress($event)" maxlength="10">
+			<mat-datepicker-toggle matSuffix [for]="myDatepicker">
+			</mat-datepicker-toggle>
+			<mat-datepicker #myDatepicker></mat-datepicker>
+			<mat-error *ngIf="dateForm.controls.datePickerInput.errors?.required && (dateForm.controls.datePickerInput.dirty || dateForm.controls.datePickerInput.touched)">Veuillez saisir une date valide</mat-error>
+			<!-- <mat-error *ngIf="dateForm.controls.datePickerInput.errors?.validateDate && dateForm.controls.datePickerInput.dirty">La date n'est pas au format dd/mm/yyyy</mat-error> -->
+		</mat-form-field>
+	</p>
+
+	<p>Input DatePicker value : <b style="color:purple">{{datePicker.value}}</b></p>
+	<p>dateForm value: <b style="color:purple">{{ dateForm.value | json }}</b></p>
+	<p>datePickerInput value from dateForm with format dd/MM/yyyy : <b style="color:purple">{{dateForm.controls.datePickerInput.value | date:'dd/MM/yyyy'}}</b></p>
+	<p>Form status: <b style="color:purple">{{ dateForm.status | json }}</b></p>
+	<hr>
+	<p><small>Version Angular Material : <i>{{version.full}}</i></small></p>
+
+</div>
+
+<!--
+    Copyright 2017 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license
+  -->
